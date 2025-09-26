@@ -1,47 +1,64 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div>
+    name:<input v-model="username" />{{ username }}<br />
+    salary:<input v-model="salary" />{{ salary }}<br />
+    <button v-on:click="addSalary">submit</button>
+    <hr />
+    <div class="userInfo">
+      <h2>Personal Information</h2>
+      <p>age:<input type="number" v-model="userInfo.age"/></p>
+      <p>sex:<input type="radio" value="1" v-model="userInfo.sex">Male</input><input type="radio" value="2" v-model="userInfo.sex">Female</input></p>
+      <p>department:<select v-model="userInfo.department">
+        <option value="dev">Development</option>
+        <option value="test">Test</option>
+        <option value="Maintain">maintain</option>
+      </select></p>
+      <p>skills:<span v-for="skill in userInfo.skills" :key="skil">{{ skill }}</span></p>
+      <p>new_skills:<input v-model="newSkill"/><button v-on:click="learnNewSkill">Learn new skill</button></p>
+      <p>Summary:{{ userInfo }}</p>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      username: "Romeo",
+      salary: 15000,
+      userInfo: {
+        age: 18,
+        sex: 1,
+        department: "",
+        skills:['java','python','vue'],
+        newskill:''
+    },
+  };
+  },
+  methods: {
+    addSalary() {
+      this.salary += 1000;
+    },
+    learnNewSkill(){
+      if(this.newSkill.trim()!==''){
+        this.userInfo.skills.push(this.newSkill);
+        this.newSkill='';
+      }else{
+        alert('Please enter a valid skill');
+      }
+    }
+  },
+};
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  .userInfo {
+    background-color: aqua;
+    widows:80%;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
+  .userInfo span{
+    background-color: yellow;
+    margin-left:10px;
+    border-radius:5px; 
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
