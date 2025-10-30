@@ -16,6 +16,28 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
+  {
+    path: "/projectManagement",
+    name: "projectManagement",
+    component: () =>
+      import(
+        /* webpackChunkName: "projectManagement" */ "../views/projectManagement.vue"
+      ),
+  },
+  {
+    path: "/discussionBoard",
+    name: "discussionBoard",
+    component: () =>
+      import(
+        /* webpackChunkName: "discussionBoard" */ "../views/discussionBoard.vue"
+      ),
+  },
+  {
+    path: "/terminal",
+    name: "terminal",
+    component: () =>
+      import(/* webpackChunkName: "terminal" */ "../components/Terminal.vue"),
+  },
 ];
 
 const router = createRouter({

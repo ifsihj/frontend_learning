@@ -13,6 +13,7 @@
           mode="horizontal"
           :items="items"
           class="menu"
+          @click="handleMenuClick"
       /></a-col>
       <a-col flex="80px">
         <div class="button">
@@ -24,6 +25,9 @@
 </template>
 <script lang="ts" setup>
 import { h, ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const current = ref<string[]>(["/"]);
 import {
   HomeOutlined,
   AppstoreOutlined,
@@ -31,7 +35,7 @@ import {
   CrownOutlined,
 } from "@ant-design/icons-vue";
 import { MenuProps } from "ant-design-vue";
-const current = ref<string[]>(["mail"]);
+//const current = ref<string[]>(["mail"]);
 const items = ref<MenuProps["items"]>([
   {
     key: "/",
@@ -40,16 +44,16 @@ const items = ref<MenuProps["items"]>([
     title: "主页",
   },
   {
-    key: "user/login",
+    key: "/projectManagement",
     icon: () => h(AppstoreOutlined),
-    label: "用户登录",
-    title: "用户登录",
+    label: "项目管理",
+    title: "项目管理",
   },
   {
-    key: "user/register",
+    key: "/discussionBoard",
     icon: () => h(SettingOutlined),
-    label: "用户注册",
-    title: "用户注册",
+    label: "讨论板",
+    title: "讨论板",
   },
   {
     key: "admin/userManage",
@@ -58,6 +62,12 @@ const items = ref<MenuProps["items"]>([
     title: "用户管理",
   },
 ]);
+
+const handleMenuClick: MenuProps["onClick"] = (e) => {
+  const path = e.key.toString();
+  current.value = [path];
+  router.push(path);
+};
 </script>
 <style scoped>
 .header {
